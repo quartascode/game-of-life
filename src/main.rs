@@ -8,22 +8,22 @@ fn index (x: usize, y: usize) -> usize {
     return y * WIDTH + x;
 }
 
-fn draw(alive: bool) {
-    if alive {
-        print!("{}", ALIVE_CHAR);
-    } else {
-        print!("{}", DEAD_CHAR);
-    }
-}
-
 fn main() {
     let mut cells = [false; HEIGHT * WIDTH];
 
     cells[3 * WIDTH + 2] = true;
+
+    let mut buffer: String = String::new();
     for i in 0..HEIGHT {
         for j in 0..WIDTH {
-            draw(cells[index(j, i)]);
+            if cells[index(j, i)] {
+                buffer.push_str(ALIVE_CHAR);
+            } else {
+                buffer.push_str(DEAD_CHAR);
+            }
         }
-        print!("\n");
+        buffer.push_str("\n");
     }
+
+    print!("{}", buffer);
 }
